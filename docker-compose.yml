@@ -1,0 +1,49 @@
+version: '3.3'
+
+services:
+  server:
+    build:
+      context: ./reign-app
+      dockerfile: Dockerfile
+    image: reign-backend
+    container_name: reign-server
+    volumes:
+      - ./reign-app/:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - "8080:8080"
+    links:
+      - mongo
+  
+  mongo:
+    container_name: reign_db
+    image: mongo
+    ports: 
+     - "27018:27017"
+  client:
+    build:
+      context: ./reign-web
+      dockerfile: Dockerfile
+    image: reign-frontend
+    stdin_open: true
+    container_name: reign-cli
+    command: yarn start
+    volumes:
+      - ./reign-web/:/usr/app
+      - /usr/app/node_modules
+    depends_on:
+      - server
+    ports:
+      - "3000:3000"
+    networks:
+      - app-network
+
+networks:
+    app-network:
+        driver: bridge
+
+volumes:
+    data-volume:
+    node_modules:
+    web-root:
+      driver: local

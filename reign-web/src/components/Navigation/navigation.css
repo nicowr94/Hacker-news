@@ -1,0 +1,8 @@
+.nav-home {
+  padding: 40px;
+  background: var(--primary);
+  color: white;
+}
+.nav-home h1{
+    font-size: 3rem;
+}
