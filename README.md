@@ -1,4 +1,4 @@
-# Reign
+# Hacker-news
 
 Tecnologias utilizadas
 - NestJs
